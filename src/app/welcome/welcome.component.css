@@ -1,0 +1,22 @@
+p {
+    font-family: unset;
+    font-size: 27px;
+    width: auto;
+    word-spacing: 3px;
+    /* height: 200px; */
+    line-height: 32px;
+    color: darkslategray;
+    text-align: center;
+}
+h1 {
+    color: cadetblue;
+    font-family: inherit;
+    font-size: xx-large;
+}
+
+.text-style{
+    color: goldenrod;
+    font-family: inherit;
+    font-size: 35px;
+    text-align: center;
+}
