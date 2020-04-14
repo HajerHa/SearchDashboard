@@ -15,6 +15,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -46,6 +47,9 @@ const appRoutes: Routes = [
     MatIconModule,
     ChartsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

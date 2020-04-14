@@ -5,7 +5,16 @@ import {ServiceService} from '../service.service';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import {MatTableDataSource} from '@angular/material/table';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+import { query } from '@angular/animations';
 
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+} 
 
 @Component({
   selector: 'app-home',
@@ -13,6 +22,12 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  emailFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  matcher = new MyErrorStateMatcher();
+
   displayedColumns: string[] = []
   dataSource = new MatTableDataSource();
   color: ThemePalette = 'primary';
@@ -45,17 +60,18 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() { }
   
-searchQuery(quey){
+searchQuery(inputText){
+ if(inputText != '') {
   this.show=false;
   this.mode = 'indeterminate' ;
-  this.myService.serchQuery(quey).subscribe(data => {this.pieChartData = data['PieChart'][1],
+  this.myService.serchQuery(inputText).subscribe(data => {this.pieChartData = data['PieChart'][1],
   this.pieChartLabels = data['PieChart'][0],
   this.dataSource=data['Table'],
   this.displayedColumns = ['arabic_tweet', 'translated_tweet', 'neg', 'neu','pos', 'compound','class'];
   this.mode = 'determinate' ;
   this.show=true
  })
-}
+}}
 
    // events
    public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {

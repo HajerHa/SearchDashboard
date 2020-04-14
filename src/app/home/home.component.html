@@ -5,11 +5,16 @@
 
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">
-
+    <form class="example-form">
     <mat-form-field class="example-form-field" >
       <mat-label>  Search</mat-label>
-      <input #box style="color: darkslategray;" matInput type="search"  (keyup.enter)="searchQuery($event.target.value)">
+      <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" 
+      style="color: darkslategray;" matInput type="search" required
+       (keyup.enter)="searchQuery($event.target.value)" #box >
+       <mat-error *ngIf="emailFormControl.hasError('required')" >
+        Field is <strong>required</strong>  </mat-error>
     </mat-form-field>
+</form>
     <button mat-icon-button style="color: rgb(67, 71, 71);" (click)="searchQuery(box.value)">
         <mat-icon>search</mat-icon>
       </button>
